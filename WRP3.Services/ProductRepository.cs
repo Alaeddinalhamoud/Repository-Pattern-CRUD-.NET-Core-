@@ -12,10 +12,5 @@ namespace WRP3.Services
         {
             _context = context;
         }
-
-        public Task<int> Save(Product product)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

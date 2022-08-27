@@ -6,7 +6,7 @@ using WRP3.IServices.Common;
 namespace WRP3.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class ProductController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -18,13 +18,9 @@ namespace WRP3.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Product product)
         {
-            if (product == null)
-            {
-                return NotFound();
-            }
+            if (product == null) return BadRequest();
 
-            var model = await _unitOfWork.Product.Add(product);
-            return Ok(model);
+            return Ok(await _unitOfWork.Product.Add(product));
         }
 
         [HttpGet]
@@ -33,5 +29,28 @@ namespace WRP3.API.Controllers
             return Ok(_unitOfWork.Product.GetAll());
         }
 
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] Product product)
+        {
+            if (product == null) return BadRequest();
+
+            return Ok(await _unitOfWork.Product.Update(product.Id, product));
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (id == 0) return BadRequest();
+
+            return Ok(await _unitOfWork.Product.Delete(id));
+        }
+
+        [HttpGet("GetById/{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            if (id == 0) return BadRequest();
+
+            return Ok(await _unitOfWork.Product.Get(id));
+        }
     }
 }

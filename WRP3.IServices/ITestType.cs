@@ -5,6 +5,5 @@ namespace WRP3.IServices
 {
     public interface ITestType : IService<TestType>
     {
-        Task<int> Save(TestType testType);
     }
 }

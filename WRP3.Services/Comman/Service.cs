@@ -14,7 +14,7 @@ namespace WRP3.Services.Comman
             _dbSet = context.Set<T>();
         }
 
-        public async Task<bool> Add(T entity)
+        public async Task<T> Add(T entity)
         {
             if (entity == null)
             {
@@ -24,7 +24,7 @@ namespace WRP3.Services.Comman
             _dbSet.Add(entity);
             await _context.SaveChangesAsync();
 
-            return true;
+            return entity;
         }
 
         public async Task<bool> Delete(int id)

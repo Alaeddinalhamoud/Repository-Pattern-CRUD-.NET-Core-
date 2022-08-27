@@ -5,6 +5,5 @@ namespace WRP3.IServices
 {
     public interface IProduct : IService<Product>
     {
-        Task<int> Save(Product product);
     }
 }
