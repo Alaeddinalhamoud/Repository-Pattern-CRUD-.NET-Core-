@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32819.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WRP3.API", "WRP3.API\WRP3.API.csproj", "{ACC83168-068F-41E0-82AB-2034F93C05A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WRP3.API", "WRP3.API\WRP3.API.csproj", "{ACC83168-068F-41E0-82AB-2034F93C05A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WRP3.Domain", "WRP3.Domain\WRP3.Domain.csproj", "{C97E539E-5AEF-47C7-B118-B0321E273F82}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WRP3.Domain", "WRP3.Domain\WRP3.Domain.csproj", "{C97E539E-5AEF-47C7-B118-B0321E273F82}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WRP3.Services", "WRP3.Services\WRP3.Services.csproj", "{4098914C-9658-4BE9-B6AE-DBA87BDEEAB0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WRP3.Services", "WRP3.Services\WRP3.Services.csproj", "{4098914C-9658-4BE9-B6AE-DBA87BDEEAB0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WRP3.IServices", "WRP3.IServices\WRP3.IServices.csproj", "{63C4BBB3-494C-4C96-BE35-AC60F6E99651}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WRP3.IServices", "WRP3.IServices\WRP3.IServices.csproj", "{63C4BBB3-494C-4C96-BE35-AC60F6E99651}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WRP3.DataAccess", "WRP3.DataAccess\WRP3.DataAccess.csproj", "{8FAF092B-7FEB-46C0-93C3-86FBC00F27ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WRP3.DataAccess", "WRP3.DataAccess\WRP3.DataAccess.csproj", "{8FAF092B-7FEB-46C0-93C3-86FBC00F27ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WRP3.BackOffice", "WRP3.BackOffice\WRP3.BackOffice.csproj", "{065196FC-8AED-4A32-8D26-DDD722F95641}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{8FAF092B-7FEB-46C0-93C3-86FBC00F27ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8FAF092B-7FEB-46C0-93C3-86FBC00F27ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8FAF092B-7FEB-46C0-93C3-86FBC00F27ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{065196FC-8AED-4A32-8D26-DDD722F95641}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{065196FC-8AED-4A32-8D26-DDD722F95641}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{065196FC-8AED-4A32-8D26-DDD722F95641}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{065196FC-8AED-4A32-8D26-DDD722F95641}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
