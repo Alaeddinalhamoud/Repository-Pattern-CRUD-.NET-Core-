@@ -5,8 +5,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Views\Shared\_Layout.cshtml.bak" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Views\Shared\_Layout.cshtml.bak" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.8" />
     <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.175" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WRP3.Domain\WRP3.Domain.csproj" />
   </ItemGroup>
 
 </Project>
