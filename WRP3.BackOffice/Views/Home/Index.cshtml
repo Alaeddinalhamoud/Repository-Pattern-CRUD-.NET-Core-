@@ -2,7 +2,22 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container-fluid text-center py-1 px-q">
+    <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+        <div class="input-group input-group-outline m-1">
+            <label class="form-label">outline here...</label>
+            <input type="text" class="form-control">
+        </div>
+        <div class="input-group input-group-dynamic m-1">
+            <label class="form-label">Dynamic here...</label>
+            <input type="text" class="form-control">
+        </div>
+        <div class="input-group input-group-static m-1">
+            <label class="form-label">Static here...</label>
+            <input type="text" class="form-control">
+        </div>
+    </div>
+    <div>
+        <a class="btn bg-gradient-primary mt-4 w-50" href="#" type="button">Logout</a>
+    </div>
 </div>
