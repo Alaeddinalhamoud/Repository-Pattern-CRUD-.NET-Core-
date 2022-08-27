@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WRP3.DataAccess\WRP3.DataAccess.csproj" />
+    <ProjectReference Include="..\WRP3.Domain\WRP3.Domain.csproj" />
+    <ProjectReference Include="..\WRP3.IServices\WRP3.IServices.csproj" />
+  </ItemGroup>
+
+</Project>
