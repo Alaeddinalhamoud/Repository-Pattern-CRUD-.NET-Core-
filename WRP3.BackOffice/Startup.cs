@@ -3,8 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using WRP3.Infrastructure.APIServices;
+using WRP3.Infrastructure.APIServices.ServiceCollections;
 
 namespace WRP3.BackOffice
 {
@@ -22,11 +21,7 @@ namespace WRP3.BackOffice
         {
             services.AddControllersWithViews()
                 .AddRazorRuntimeCompilation();
-            services.AddHttpClient("API", httpClient =>
-            {
-                httpClient.BaseAddress = new Uri("https://localhost:44365");
-            });
-            services.AddScoped(typeof(IAPIService<>), typeof(APIService<>));
+            services.AddCustomAPIServices(Configuration);
 
         }
 

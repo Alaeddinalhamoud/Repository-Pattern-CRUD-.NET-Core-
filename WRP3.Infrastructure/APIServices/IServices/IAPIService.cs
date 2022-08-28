@@ -1,4 +1,4 @@
-﻿namespace WRP3.Infrastructure.APIServices
+﻿namespace WRP3.Infrastructure.APIServices.IServices
 {
     public interface IAPIService<T> where T : class
     {

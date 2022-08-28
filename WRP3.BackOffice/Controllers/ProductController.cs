@@ -9,7 +9,7 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using WRP3.Domain.Entities;
-using WRP3.Infrastructure.APIServices;
+using WRP3.Infrastructure.APIServices.IServices;
 
 namespace WRP3.BackOffice.Controllers
 {

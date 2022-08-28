@@ -1,7 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 using System.Text.Json;
+using WRP3.Infrastructure.APIServices.IServices;
 
-namespace WRP3.Infrastructure.APIServices
+namespace WRP3.Infrastructure.APIServices.Services
 {
     public class APIService<T> : IAPIService<T> where T : class
     {
