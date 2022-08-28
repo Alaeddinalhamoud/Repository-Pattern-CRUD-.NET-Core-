@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WRP3.Domain\WRP3.Domain.csproj" />
+    <ProjectReference Include="..\WRP3.Infrastructure\WRP3.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
