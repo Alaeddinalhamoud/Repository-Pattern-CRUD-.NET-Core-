@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Threading.Tasks;
 using WRP3.Domain.Entities;
 using WRP3.Infrastructure.APIServices.IServices;
@@ -12,7 +13,7 @@ namespace WRP3.BackOffice.Controllers
     {
         private readonly ILogger<ProductController> _logger;
         private readonly IAPIService<Product> _productAPIService;
-        const string Product_URL = "/api/product";
+        const string Product_API_URL = "/api/product";
 
         [TempData]
         public string StatusMessage { get; set; }
@@ -27,7 +28,7 @@ namespace WRP3.BackOffice.Controllers
         {
             try
             {
-                return View(await _productAPIService.GetAll("/api/product"));
+                return View(await _productAPIService.GetAll(Product_API_URL));
             }
             catch (Exception ex)
             {
@@ -48,21 +49,83 @@ namespace WRP3.BackOffice.Controllers
         {
             try
             {
-                if (product is null) return View();
+                if (product is null)
+                {
+                    StatusMessage = $"Error, Please check the missed fields";
+                    return View(product);
+                }
 
                 product.Created = DateTime.Now;
                 product.CreatedBy = "Alaeddin local";
 
-                var entity = await _productAPIService.Post(product, Product_URL);
+                var entity = await _productAPIService.Post(product, Product_API_URL);
 
                 StatusMessage = $"Product {product?.Name} has been added successfully";
 
-                return View(product);
+                return RedirectToAction("Details", new { Id = product.Id });
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, $"Error while trying to add {typeof(Product)}");
                 StatusMessage = $"Error: While trying to get all products {nameof(ProductController)}";
+                return View(product);
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int? id)
+        {
+            try
+            {
+                if (id == 0)
+                {
+                    StatusMessage = $"Error, Please check the missed data";
+                    return View(new Product() { Id = 0 });
+                }
+
+                var product = await _productAPIService.Get(id, $"{Product_API_URL}/GetById");
+
+                if (product is null)
+                {
+                    StatusMessage = $"Error, Data not found";
+                    return View(new Product() { Id = 0 });
+                }
+
+                return View(product);
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error while trying to Get {typeof(Product)}");
+                StatusMessage = $"Error: While trying to get all products {nameof(ProductController)}";
+                return View(new Product() { Id = 0 });
+            }
+        }
+
+        [HttpPost, AutoValidateAntiforgeryToken]
+        public async Task<IActionResult> Edit(Product product)
+        {
+            try
+            {
+                if (product is null)
+                {
+                    StatusMessage = $"Error, Please check the missed fields";
+                    return View(product);
+                }
+
+                product.LastModified = DateTime.Now;
+                product.LastModifiedBy = "Alaeddin local";
+
+                var entity = await _productAPIService.Update(product, Product_API_URL);
+
+                StatusMessage = $"Product {product?.Name} has been updated successfully";
+
+                return View(product);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error while trying to Edit {typeof(Product)}");
+                StatusMessage = $"Error: While trying to Edit product {nameof(ProductController)}";
                 return View(product);
             }
         }

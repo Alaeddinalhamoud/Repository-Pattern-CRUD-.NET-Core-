@@ -41,7 +41,7 @@ namespace WRP3.Infrastructure.APIServices.Services
             }
         }
 
-        public async Task<T?> Get(string? id, string? url)
+        public async Task<T?> Get(int? id, string? url)
         {
             try
             {

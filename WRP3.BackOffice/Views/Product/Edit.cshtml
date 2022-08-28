@@ -1,6 +1,6 @@
 ﻿@model WRP3.Domain.Entities.Product
 
-@{ ViewData["Title"] = "Add New Product";}
+@{ViewData["Title"] = $"Edit {Model?.Name}";}
 
 <partial name="Layout/_StatusMessage" model='TempData.Peek("StatusMessage")' />
 <div class="row align-content-center">
@@ -9,9 +9,12 @@
             <partial name="Partials/_PageHeader" model="@ViewData["Title"]" />
             <div class="card-body px-0 pb-2">
                 <div class="p-4">
-                    <form asp-action="Add" asp-controller="Product" method="post" class="px-3 m-5">
+                    <form asp-action="Edit" asp-controller="Product" method="post" class="px-3 m-5">
 
                         <input asp-for="Id" type="number" class="form-control" hidden>
+                        <input asp-for="Created" type="datetime" class="form-control" hidden>
+                        <input asp-for="CreatedBy" type="text" class="form-control" hidden>
+
                         <input name="__RequestVerificationToken" type="hidden">
 
                         <div class="input-group input-group-static mb-4">

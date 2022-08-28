@@ -28,9 +28,12 @@
             </div>
         </td>
         <td class="align-middle">
-            <button class="btn btn-link text-secondary mb-0">
-                <i class="fa fa-ellipsis-v text-xs" aria-hidden="true"></i>
-            </button>
+            <a asp-action="Edit" asp-controller="Product" asp-route-id="@product?.Id"
+           class="btn btn-link text-secondary mb-0"
+           data-bs-toggle="tooltip" data-bs-placement="top" title="Edit @product?.Name">
+                <i class="fa fa-edit text-xs" aria-hidden="true"></i>
+                Edit
+            </a>
         </td>
     </tr>
 }
