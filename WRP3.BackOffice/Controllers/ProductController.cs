@@ -3,6 +3,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Net.Http.Headers;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -27,15 +29,14 @@ namespace WRP3.BackOffice.Controllers
         public async Task<IActionResult> Index()
 
         {
-            List<Product> products = new();
+            List<Product> products;
             try
             {
-                var httpRequestMessage = new HttpRequestMessage
-                           (HttpMethod.Get, "/api/product");
+
 
                 var httpClient = _httpClientFactory.CreateClient("API");
 
-                var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage);
+                var httpResponseMessage = await httpClient.GetAsync("/api/product");
 
                 if (httpResponseMessage.IsSuccessStatusCode)
                 {
@@ -43,7 +44,7 @@ namespace WRP3.BackOffice.Controllers
                         await httpResponseMessage.Content.ReadAsStreamAsync();
 
                     products = await JsonSerializer.DeserializeAsync
-                        <List<Product>>(contentStream);
+                        <List<Product>>(contentStream, new JsonSerializerOptions() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
                     StatusMessage = "Message";
                     return View(products);
                 }
