@@ -12,7 +12,7 @@ namespace WRP3.Infrastructure.APIServices.ServiceCollections
         {
             services.AddHttpClient("API", httpClient =>
             {
-                httpClient.BaseAddress = new Uri("https://localhost:44365");
+                httpClient.BaseAddress = new Uri(config["APIHostUrl"]);
             });
             services.AddScoped(typeof(IAPIService<>), typeof(APIService<>));
 

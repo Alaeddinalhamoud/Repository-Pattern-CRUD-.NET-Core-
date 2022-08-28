@@ -1,0 +1,31 @@
+﻿@model WRP3.Domain.Entities.Product
+
+@{
+    ViewData["Title"] = "Add New Product";
+}
+<partial name="Layout/_StatusMessage" model='TempData.Peek("StatusMessage")' />
+<div class="row align-content-center">
+    <div class="col-12">
+        <div class="card my-4">
+            <partial name="Partials/_PageHeader" model="@ViewData["Title"]" />
+            <div class="card-body px-0 pb-2">
+                <form asp-action="Add" asp-controller="Product" method="post" class="px-3 m-5">
+                    <input asp-for="Id" type="text" class="form-control" hidden>
+                    <input name="__RequestVerificationToken" type="hidden">
+                    <div class="form-group">
+                        <div class="input-group input-group-outline">
+                            <label class="form-label">Product Name</label>
+                            <input asp-for="Name" type="text" class="form-control" required>
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="w-lg-25 w-sm-75">
+                        <button class="btn bg-gradient-primary w-100 mb-0 toast-btn mt-4" type="submit">
+                            Save
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

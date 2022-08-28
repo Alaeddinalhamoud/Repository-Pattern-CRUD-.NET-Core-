@@ -2,9 +2,10 @@
 {
     public interface IAPIService<T> where T : class
     {
-        Task<T> Get(string id, string url);
-        Task<List<T>> GetAll(string url);
-        Task<bool> Delete(int? id, string urlen);
-        Task<bool> Post(T t, string url);
+        Task<T?> Get(string? id, string? url);
+        Task<List<T>?> GetAll(string? url);
+        Task<T?> Delete(int? id, string? url);
+        Task<T?> Post(T? t, string? url);
+        Task<T?> Update(T? t, string? url);
     }
 }

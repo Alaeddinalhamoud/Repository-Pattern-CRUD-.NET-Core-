@@ -27,7 +27,7 @@ namespace WRP3.Services.Comman
             return entity;
         }
 
-        public async Task<bool> Delete(int id)
+        public async Task<T> Delete(int id)
         {
             T? entity = await _dbSet.FindAsync(id);
 
@@ -38,7 +38,7 @@ namespace WRP3.Services.Comman
 
             _dbSet.Remove(entity);
             await _context.SaveChangesAsync();
-            return true;
+            return entity;
         }
 
         public async Task<T> Get(int id)
