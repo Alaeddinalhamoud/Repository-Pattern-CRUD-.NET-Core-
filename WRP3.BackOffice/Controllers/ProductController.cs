@@ -33,7 +33,7 @@ namespace WRP3.BackOffice.Controllers
             {
                 _logger.LogError(ex, $"Error whilte trying to get all {typeof(ProductController)}");
                 StatusMessage = $"Error: While trying to get all products {nameof(ProductController)}";
-                return View(new List<Product>());
+                return RedirectToAction("Error", "Home");
             }
         }
 
@@ -51,7 +51,7 @@ namespace WRP3.BackOffice.Controllers
                 if (product is null)
                 {
                     StatusMessage = $"Error, Please check the missed fields";
-                    return View(product);
+                    return RedirectToAction("Error", "Home");
                 }
 
                 product.Created = DateTime.Now;
@@ -67,7 +67,7 @@ namespace WRP3.BackOffice.Controllers
             {
                 _logger.LogError(ex, $"Error while trying to add {typeof(Product)}");
                 StatusMessage = $"Error: While trying to get all products {nameof(ProductController)}";
-                return View(product);
+                return RedirectToAction("Error", "Home");
             }
         }
 
@@ -76,10 +76,10 @@ namespace WRP3.BackOffice.Controllers
         {
             try
             {
-                if (id == 0)
+                if (id == 0 || id is null)
                 {
                     StatusMessage = $"Error, Please check the missed data";
-                    return View(new Product() { Id = 0 });
+                    return RedirectToAction("Error", "Home");
                 }
 
                 var product = await _productAPIService.Get(id, $"{Product_API_URL}/GetById");
@@ -87,7 +87,7 @@ namespace WRP3.BackOffice.Controllers
                 if (product is null)
                 {
                     StatusMessage = $"Error, Data not found";
-                    return View(new Product() { Id = 0 });
+                    return RedirectToAction("Error", "Home");
                 }
 
                 return View(product);
@@ -97,7 +97,7 @@ namespace WRP3.BackOffice.Controllers
             {
                 _logger.LogError(ex, $"Error while trying to Get {typeof(Product)}");
                 StatusMessage = $"Error: While trying to get all products {nameof(ProductController)}";
-                return View(new Product() { Id = 0 });
+                return RedirectToAction("Error", "Home");
             }
         }
 
@@ -109,7 +109,7 @@ namespace WRP3.BackOffice.Controllers
                 if (product is null)
                 {
                     StatusMessage = $"Error, Please check the missed fields";
-                    return View(product);
+                    return RedirectToAction("Error", "Home");
                 }
 
                 product.LastModified = DateTime.Now;
@@ -125,7 +125,7 @@ namespace WRP3.BackOffice.Controllers
             {
                 _logger.LogError(ex, $"Error while trying to Edit {typeof(Product)}");
                 StatusMessage = $"Error: While trying to Edit product {nameof(ProductController)}";
-                return View(product);
+                return RedirectToAction("Error", "Home");
             }
         }
         [HttpGet]
@@ -133,17 +133,17 @@ namespace WRP3.BackOffice.Controllers
         {
             try
             {
-                if (id == 0)
+                if (id == 0 || id is null)
                 {
                     StatusMessage = $"Error, Please check the missed fields";
-                    return View(new Product() { Id = 0 });
+                    return RedirectToAction("Error", "Home");
                 }
                 var product = await _productAPIService.Get(id, $"{Product_API_URL}/GetById");
 
                 if (product is null)
                 {
                     StatusMessage = $"Error, Data Not Found";
-                    return View(new Product() { Id = 0 });
+                    return RedirectToAction("Error", "Home");
                 }
                 return View(product);
             }
@@ -151,7 +151,7 @@ namespace WRP3.BackOffice.Controllers
             {
                 _logger.LogError(ex, $"Error while trying to Edit {typeof(Product)}");
                 StatusMessage = $"Error: While trying to Edit product {nameof(ProductController)}";
-                return View();
+                return RedirectToAction("Error", "Home");
             }
         }
 
@@ -160,10 +160,10 @@ namespace WRP3.BackOffice.Controllers
         {
             try
             {
-                if (id == 0)
+                if (id == 0 || id is null)
                 {
                     StatusMessage = $"Error, Please check the missed fields";
-                    return View(new Product() { Id = 0 });
+                    return RedirectToAction("Error", "Home");
                 }
 
                 var product = await _productAPIService.Delete(Convert.ToInt32(id), Product_API_URL);
@@ -176,7 +176,7 @@ namespace WRP3.BackOffice.Controllers
             {
                 _logger.LogError(ex, $"Error while trying to Delete {typeof(Product)}");
                 StatusMessage = $"Error: While trying to Edit product {nameof(ProductController)}";
-                return View();
+                return RedirectToAction("Error", "Home");
             }
         }
 

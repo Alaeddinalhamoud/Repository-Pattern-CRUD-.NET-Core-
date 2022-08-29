@@ -1,5 +1,3 @@
-using System;
-
 namespace WRP3.BackOffice.Models
 {
     public class ErrorViewModel
