@@ -1,18 +1,18 @@
 ﻿@using WRP3.Domain.Entities;
-@model IEnumerable<Product>
+@model IEnumerable<TestType>
 
-@foreach (var product in Model ?? new List<Product>())
+@foreach (var testType in Model ?? new List<TestType>())
 {
     <tr>
         <td>
             <div class="d-flex px-2">
                 <div class="my-auto">
-                    <h6 class="mb-0 text-sm">@product?.Id</h6>
+                    <h6 class="mb-0 text-sm">@testType?.Id</h6>
                 </div>
             </div>
         </td>
         <td>
-            <p class="text-sm font-weight-bold mb-0">@product?.Name</p>
+            <p class="text-sm font-weight-bold mb-0">@testType?.Name</p>
         </td>
         <td>
             <span class="text-xs font-weight-bold">working</span>
@@ -28,22 +28,22 @@
             </div>
         </td>
         <td class="align-middle">
-            <a asp-action="Edit" asp-controller="Product" asp-route-id="@product?.Id"
+            <a asp-action="Edit" asp-controller="TestType" asp-route-id="@testType?.Id"
                class="btn btn-link text-warning mb-0"
-               data-bs-toggle="tooltip" data-bs-placement="top" title="Edit @product?.Name">
+           data-bs-toggle="tooltip" data-bs-placement="top" title="Edit @testType?.Name">
                 <i class="fa fa-edit text-xs" aria-hidden="true"></i>
                 Edit
             </a>
-            <a asp-action="Details" asp-controller="Product" asp-route-id="@product?.Id"
+            <a asp-action="Details" asp-controller="TestType" asp-route-id="@testType?.Id"
                class="btn btn-link text-success mb-0"
-               data-bs-toggle="tooltip" data-bs-placement="top" title="Details for @product?.Name">
+           data-bs-toggle="tooltip" data-bs-placement="top" title="Details for @testType?.Name">
                 <i class="fa fa-info-circle text-xs" aria-hidden="true"></i>
                 Details
             </a>
             <a onclick="passIdToModal(this)" id="deleteOpt" class="btn btn-link text-danger mb-0"
-               title="Delete @product?.Name"
+               title="Delete @testType?.Name"
                data-bs-toggle="modal" data-bs-target="#DeleteModal"
-               data-productId='@product?.Id'>
+           data-testTypeId='@testType?.Id'>
                 <i class="fa fa-trash text-xs" aria-hidden="true"></i>
                 Delete
             </a>
@@ -70,9 +70,9 @@
                 <h3>Are you sure?</h3>
             </div>
             <div class="modal-footer">
-                <form asp-action="Delete" asp-controller="Product" method="get">
+                <form asp-action="Delete" asp-controller="TestType" method="get">
+                    <input type="text" name="testTypeId" id="testTypeId" hidden required />
                     <input name="__RequestVerificationToken" type="hidden">
-                    <input type="text" name="productId" id="productId" hidden required />
                     <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn bg-gradient-danger">Delete</button>
                 </form>
@@ -85,6 +85,6 @@
 <script type="text/javascript">
     function passIdToModal(e) {
 
-        document.getElementById("productId").value = e.getAttribute("data-productId");
+        document.getElementById("testTypeId").value = e.getAttribute("data-testTypeId");
     }
 </script>

@@ -1,0 +1,31 @@
+﻿@model WRP3.Domain.Entities.TestType
+
+@{ViewData["Title"] = $"Edit {Model?.Name}";}
+
+<partial name="Layout/_StatusMessage" model='TempData.Peek("StatusMessage")' />
+<div class="row align-content-center">
+    <div class="col-12">
+        <div class="card my-4">
+            <partial name="Partials/_PageHeader" model="@ViewData["Title"]" />
+            <div class="card-body px-0 pb-2">
+                <div class="p-4">
+                    <form asp-action="Edit" asp-controller="TestType" method="post" class="px-3 m-5">
+
+                        <input asp-for="Id" type="number" class="form-control" hidden>
+                        <input asp-for="Created" type="datetime" class="form-control" hidden>
+                        <input asp-for="CreatedBy" type="text" class="form-control" hidden>
+
+                        <input name="__RequestVerificationToken" type="hidden">
+
+                        <div class="input-group input-group-static mb-4">
+                            <label>TestType Name</label>
+                            <input asp-for="Name" type="text" class="form-control">
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

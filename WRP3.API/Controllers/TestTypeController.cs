@@ -37,7 +37,7 @@ namespace WRP3.API.Controllers
             return Ok(await _unitOfWork.TestType.Update(testType.Id, testType));
         }
 
-        [HttpDelete]
+        [HttpDelete("{id:int}")]
         public async Task<IActionResult> Delete(int id)
         {
             if (id == 0) return BadRequest();

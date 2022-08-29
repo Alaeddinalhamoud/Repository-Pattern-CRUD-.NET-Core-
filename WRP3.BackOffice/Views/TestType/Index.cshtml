@@ -1,0 +1,39 @@
+﻿@using WRP3.Domain.Entities;
+@model IEnumerable<TestType>
+
+@{ ViewData["Title"] = "TestType Page";}
+<partial name="Layout/_StatusMessage" model='TempData.Peek("StatusMessage")' />
+<div class="row">
+    <div class="col-12">
+        <div class="card my-4">
+            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                    <div class="row">
+                        <div class="col-6 d-flex align-items-center">
+                            <h6 class="text-white text-capitalize px-3">Test Type</h6>
+                        </div>
+                        <div class="col-6 text-end px-3">
+                            <a class="btn bg-gradient-faded-white-vertical mb-0 text-primary"
+                               data-bs-toggle="tooltip" data-bs-placement="top"
+                               title="Add New TestType"
+                               asp-action="Add" asp-controller="TestType">
+                                <i class="material-icons text-sm">add</i>
+                                &nbsp;&nbsp;Add New Test
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body px-0 pb-2">
+                <div class="table-responsive p-0">
+                    <table class="table align-items-center justify-content-center mb-0">
+                        <partial name="Partials/_TestTypeTableHeader" />
+                        <tbody>
+                            <partial name="Partials/_TestTypeChildern" model="Model" />
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

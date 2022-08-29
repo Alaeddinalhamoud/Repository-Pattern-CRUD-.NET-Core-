@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using WRP3.Domain.Entities;
 using WRP3.Infrastructure.APIServices.IServices;
@@ -61,7 +60,7 @@ namespace WRP3.BackOffice.Controllers
 
                 StatusMessage = $"Product {product?.Name} has been added successfully";
 
-                return RedirectToAction("Details", new { Id = product.Id });
+                return RedirectToAction("Details", new { Id = entity.Id });
             }
             catch (Exception ex)
             {
@@ -129,7 +128,7 @@ namespace WRP3.BackOffice.Controllers
             }
         }
         [HttpGet]
-        public async Task<IActionResult> Detail(int? id)
+        public async Task<IActionResult> Details(int? id)
         {
             try
             {
@@ -155,7 +154,7 @@ namespace WRP3.BackOffice.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet, AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Delete(int? id)
         {
             try
@@ -179,6 +178,5 @@ namespace WRP3.BackOffice.Controllers
                 return RedirectToAction("Error", "Home");
             }
         }
-
     }
 }
