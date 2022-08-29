@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Threading.Tasks;
 using WRP3.Domain.Entities;
 using WRP3.Infrastructure.APIServices.IServices;
@@ -127,6 +126,57 @@ namespace WRP3.BackOffice.Controllers
                 _logger.LogError(ex, $"Error while trying to Edit {typeof(Product)}");
                 StatusMessage = $"Error: While trying to Edit product {nameof(ProductController)}";
                 return View(product);
+            }
+        }
+        [HttpGet]
+        public async Task<IActionResult> Detail(int? id)
+        {
+            try
+            {
+                if (id == 0)
+                {
+                    StatusMessage = $"Error, Please check the missed fields";
+                    return View(new Product() { Id = 0 });
+                }
+                var product = await _productAPIService.Get(id, $"{Product_API_URL}/GetById");
+
+                if (product is null)
+                {
+                    StatusMessage = $"Error, Data Not Found";
+                    return View(new Product() { Id = 0 });
+                }
+                return View(product);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error while trying to Edit {typeof(Product)}");
+                StatusMessage = $"Error: While trying to Edit product {nameof(ProductController)}";
+                return View();
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            try
+            {
+                if (id == 0)
+                {
+                    StatusMessage = $"Error, Please check the missed fields";
+                    return View(new Product() { Id = 0 });
+                }
+
+                var product = await _productAPIService.Delete(Convert.ToInt32(id), Product_API_URL);
+
+                StatusMessage = $"Product Id {product?.Name} has been deleted.";
+
+                return RedirectToAction("index");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error while trying to Delete {typeof(Product)}");
+                StatusMessage = $"Error: While trying to Edit product {nameof(ProductController)}";
+                return View();
             }
         }
 

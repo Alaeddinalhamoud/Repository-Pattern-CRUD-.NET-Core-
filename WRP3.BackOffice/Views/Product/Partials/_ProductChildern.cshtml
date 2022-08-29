@@ -29,11 +29,67 @@
         </td>
         <td class="align-middle">
             <a asp-action="Edit" asp-controller="Product" asp-route-id="@product?.Id"
-           class="btn btn-link text-secondary mb-0"
+           class="btn btn-link text-warning mb-0"
            data-bs-toggle="tooltip" data-bs-placement="top" title="Edit @product?.Name">
                 <i class="fa fa-edit text-xs" aria-hidden="true"></i>
                 Edit
             </a>
+            <a asp-action="Detail" asp-controller="Product" asp-route-id="@product?.Id"
+           class="btn btn-link text-success mb-0"
+           data-bs-toggle="tooltip" data-bs-placement="top" title="Detail for @product?.Name">
+                <i class="fa fa-info-circle text-xs" aria-hidden="true"></i>
+                Detail
+            </a>
+            <a class="btn btn-link text-danger mb-0"
+           asp-action="Delete" asp-controller="Product" asp-route-id="@product?.Id"
+           title="Delete @product?.Name">
+                <i class="fa fa-trash text-xs" aria-hidden="true"></i>
+                Delete
+            </a>
+            <a onclick="passIdToModal(this)" id="deleteOpt" class="btn btn-link text-danger mb-0"
+           title="Delete @product?.Name"
+           data-bs-toggle="modal" data-bs-target="#DeleteModal"
+           data-productId='@product?.Id'>
+                <i class="fa fa-trash text-xs" aria-hidden="true"></i>
+                Delete
+            </a>
         </td>
     </tr>
 }
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="DeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title font-weight-normal" id="DeleteModalLabel">
+                    Delete
+                </h5>
+                <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3>Are you sure?</h3>
+            </div>
+            <div class="modal-footer">
+                <form asp-action="Delete" asp-controller="Product" method="get">
+                    <input type="text" name="productId" id="productId" hidden required />
+                    <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn bg-gradient-danger">Delete</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function passIdToModal(e) {
+
+        document.getElementById("productId").value = e.getAttribute("data-productId");
+    }
+</script>
