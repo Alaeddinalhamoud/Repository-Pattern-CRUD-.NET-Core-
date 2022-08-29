@@ -1,7 +1,7 @@
 ﻿@model WRP3.Domain.Entities.Product
 
 @{ViewData["Title"] = $"Edit {Model?.Name}";}
-
+<div class="container-fluid py-4">
 <partial name="Layout/_StatusMessage" model='TempData.Peek("StatusMessage")' />
 <div class="row align-content-center">
     <div class="col-12">
@@ -28,4 +28,5 @@
             </div>
         </div>
     </div>
+</div>
 </div>

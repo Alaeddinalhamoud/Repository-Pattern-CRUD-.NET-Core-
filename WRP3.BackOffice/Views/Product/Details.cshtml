@@ -3,42 +3,43 @@
 @{
     ViewData["Title"] = $"{Model?.Name} Details";
 }
-
-<partial name="Layout/_StatusMessage" model='TempData.Peek("StatusMessage")' />
-<div class="row align-content-center">
-    <div class="col-12">
-        <div class="card my-4">
-            <partial name="Partials/_PageHeader" model="@ViewData["Title"]" />
-            <div class="card-body px-0 pb-2">
-                <div class="p-4">
-                    <div>
-                        <label class="font-weight-bold">Product Id:</label>
-                        <span>@Model?.Id</span>
-                    </div>
-                    <div>
-                        <label class="font-weight-bold">Product Name:</label>
-                        <span>@Model?.Name</span>
-                    </div>
-                    <div>
-                        <label class="font-weight-bold">Created:</label>
-                        <span>@Model?.Created.ToString("d")</span>
-                    </div>
-                    <div>
-                        <label class="font-weight-bold">Created By:</label>
-                        <span>@Model?.CreatedBy</span>
-                    </div>
-                    <div>
-                        <label class="font-weight-bold">Last Modified:</label>
-                        <span>@Model?.LastModified?.ToString("d")</span>
-                    </div>
-                    <div>
-                        <label class="font-weight-bold">Last Modified By:</label>
-                        <span>@Model?.LastModifiedBy</span>
-                    </div>  
-                    <br/>
-                    <div>
-                        <a asp-action="Index" asp-controller="Product" class="btn btn-outline-info">Product List</a>
-                        <a asp-action="Edit" asp-controller="Product" asp-route-id="@Model?.Id" class="btn btn-outline-warning">Edit</a>
+<div class="container-fluid py-4">
+    <partial name="Layout/_StatusMessage" model='TempData.Peek("StatusMessage")' />
+    <div class="row align-content-center">
+        <div class="col-12">
+            <div class="card my-4">
+                <partial name="Partials/_PageHeader" model="@ViewData["Title"]" />
+                <div class="card-body px-0 pb-2">
+                    <div class="p-4">
+                        <div>
+                            <label class="font-weight-bold">Product Id:</label>
+                            <span>@Model?.Id</span>
+                        </div>
+                        <div>
+                            <label class="font-weight-bold">Product Name:</label>
+                            <span>@Model?.Name</span>
+                        </div>
+                        <div>
+                            <label class="font-weight-bold">Created:</label>
+                            <span>@Model?.Created.ToString("d")</span>
+                        </div>
+                        <div>
+                            <label class="font-weight-bold">Created By:</label>
+                            <span>@Model?.CreatedBy</span>
+                        </div>
+                        <div>
+                            <label class="font-weight-bold">Last Modified:</label>
+                            <span>@Model?.LastModified?.ToString("d")</span>
+                        </div>
+                        <div>
+                            <label class="font-weight-bold">Last Modified By:</label>
+                            <span>@Model?.LastModifiedBy</span>
+                        </div>
+                        <br />
+                        <div>
+                            <a asp-action="Index" asp-controller="Product" class="btn btn-outline-info">Product List</a>
+                            <a asp-action="Edit" asp-controller="Product" asp-route-id="@Model?.Id" class="btn btn-outline-warning">Edit</a>
+                        </div>
                     </div>
                 </div>
             </div>

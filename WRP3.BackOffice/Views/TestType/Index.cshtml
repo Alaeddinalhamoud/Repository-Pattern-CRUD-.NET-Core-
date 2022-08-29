@@ -2,6 +2,7 @@
 @model IEnumerable<TestType>
 
 @{ ViewData["Title"] = "TestType Page";}
+<div class="container-fluid py-4">
 <partial name="Layout/_StatusMessage" model='TempData.Peek("StatusMessage")' />
 <div class="row">
     <div class="col-12">
@@ -36,4 +37,5 @@
             </div>
         </div>
     </div>
+</div>
 </div>

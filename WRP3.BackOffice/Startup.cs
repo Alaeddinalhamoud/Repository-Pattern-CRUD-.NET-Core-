@@ -4,6 +4,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WRP3.Infrastructure.APIServices.ServiceCollections;
+using Microsoft.Identity.Web;
+using Microsoft.Identity.Web.UI;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 
 namespace WRP3.BackOffice
 {
@@ -19,8 +22,19 @@ namespace WRP3.BackOffice
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
+                 .AddMicrosoftIdentityWebApp(Configuration.GetSection("AzureB2C"));
+
+            services.AddAuthorization(options =>
+            {
+                // By default, all incoming requests will be authorized according to 
+                // the default policy
+                options.FallbackPolicy = options.DefaultPolicy;
+            });
+
             services.AddControllersWithViews()
                 .AddRazorRuntimeCompilation();
+            services.AddRazorPages().AddMicrosoftIdentityUI();
             services.AddCustomAPIServices(Configuration);
 
         }
@@ -42,7 +56,7 @@ namespace WRP3.BackOffice
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
