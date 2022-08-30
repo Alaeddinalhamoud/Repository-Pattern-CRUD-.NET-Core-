@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WRP3.Domain\WRP3.Domain.csproj" />
+    <ProjectReference Include="..\WRP3.IServices\WRP3.IServices.csproj" />
   </ItemGroup>
 
 </Project>

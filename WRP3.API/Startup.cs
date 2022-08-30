@@ -1,12 +1,11 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Identity.Web;
-using WRP3.DataAccess.EFDBContext;
+using WRP3.DataAccess.ServiceCollections;
 using WRP3.IServices.Common;
 using WRP3.Services.Comman;
 
@@ -33,9 +32,7 @@ namespace WRP3.API
             options => { Configuration.Bind(Constants.AzureAdB2C, options); });
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
-
-            services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("ConnectionStr")));
+            services.AddCustomSqlServer(Configuration);
 
             services.AddControllers();
             services.AddSwaggerGen();

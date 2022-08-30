@@ -2,19 +2,20 @@
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
+		<UserSecretsId>aspnet-WRP3.Web-3FEE7683-F37A-4019-B51D-D95A2219256E</UserSecretsId>
+		<WebProject_DirectoryAccessLevelKey>0</WebProject_DirectoryAccessLevelKey>
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.AzureAD.UI" Version="6.0.8" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.8" />
 		<PackageReference Include="Microsoft.Identity.Web" Version="1.25.2" />
 		<PackageReference Include="Microsoft.Identity.Web.UI" Version="1.25.2" />
-		<PackageReference Include="Microsoft.AspNetCore.Authentication.AzureAD.UI" Version="6.0.8" />
-		<PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.175" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\WRP3.Domain\WRP3.Domain.csproj" />
-		<ProjectReference Include="..\WRP3.Infrastructure\WRP3.Infrastructure.csproj" />
+	  <ProjectReference Include="..\WRP3.Domain\WRP3.Domain.csproj" />
+	  <ProjectReference Include="..\WRP3.Infrastructure\WRP3.Infrastructure.csproj" />
 	</ItemGroup>
 
 </Project>

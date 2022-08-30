@@ -1,15 +1,15 @@
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using WRP3.Infrastructure.APIServices.ServiceCollections;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.AspNetCore.Authorization;
+using WRP3.Infrastructure.APIServices.ServiceCollections;
 
-namespace WRP3.BackOffice
+namespace WRP3.Web
 {
     public class Startup
     {
@@ -22,13 +22,9 @@ namespace WRP3.BackOffice
 
         public void ConfigureServices(IServiceCollection services)
         {
-
-
             services.AddMicrosoftIdentityWebAppAuthentication(Configuration, Constants.AzureAdB2C)
-                   .EnableTokenAcquisitionToCallDownstreamApi(new string[] { Configuration["APIScopes:UserAccess"] })
-                   .AddInMemoryTokenCaches();
-
-
+                    .EnableTokenAcquisitionToCallDownstreamApi(new string[] { Configuration["APIScopes:UserAccess"] })
+                    .AddInMemoryTokenCaches();
 
             services.AddControllersWithViews(opt =>
             {
@@ -37,15 +33,17 @@ namespace WRP3.BackOffice
                 .Build();
             }).AddRazorRuntimeCompilation();
 
+
+
             services.AddRazorPages().AddMicrosoftIdentityUI();
 
             services.AddCustomAPIServices(Configuration);
 
             services.AddOptions();
             services.Configure<OpenIdConnectOptions>(Configuration.GetSection("AzureAdB2C"));
-
         }
 
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -62,6 +60,7 @@ namespace WRP3.BackOffice
             app.UseStaticFiles();
 
             app.UseRouting();
+
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -70,6 +69,7 @@ namespace WRP3.BackOffice
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }
