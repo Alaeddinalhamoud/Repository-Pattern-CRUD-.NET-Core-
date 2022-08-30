@@ -1,0 +1,22 @@
+﻿@using WRP3.Web.Models.ProductViewModels
+@using WRP3.Domain.Entities;
+@model Review;
+
+
+<div>
+    <h3>product details</h3>
+    <p>Product Id:</p><span>@Model?.ProductId</span>
+    <p>Product Name:</p><span>@Model?.ProductName</span>
+
+    <div>
+        <h4>product Review</h4>
+        <ul>
+            @foreach (var testType in Model.TestTypes ?? new List<TestType>())
+            {
+           <li>
+                    <input type="checkbox" name="@testType.Id"/>
+           </li>
+       }
+        </ul>
+    </div>
+</div>

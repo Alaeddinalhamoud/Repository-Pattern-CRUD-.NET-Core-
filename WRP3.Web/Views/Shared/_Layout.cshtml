@@ -44,6 +44,7 @@
         </nav>
     </header>
     <div class="container">
+        <partial name="_StatusMessage" model='TempData.Peek("StatusMessage")' />
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
