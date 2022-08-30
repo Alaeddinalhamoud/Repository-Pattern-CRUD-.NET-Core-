@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Microsoft.Identity.Web;
 using System;
 using System.Threading.Tasks;
 using WRP3.Domain.Entities;
@@ -16,19 +15,16 @@ namespace WRP3.BackOffice.Controllers
         private readonly ILogger<ProductController> _logger;
         private readonly IAPIService<Product> _productAPIService;
         const string API_URL = "/api/product";
-        private readonly ITokenAcquisition _tokenAcquisition;
         private readonly IConfiguration _configuration;
 
         [TempData]
         public string StatusMessage { get; set; }
         public ProductController(ILogger<ProductController> logger,
             IAPIService<Product> productAPIService,
-            ITokenAcquisition tokenAcquisition,
             IConfiguration configuration)
         {
             _logger = logger;
             _productAPIService = productAPIService;
-            _tokenAcquisition = tokenAcquisition;
             _configuration = configuration;
 
         }
