@@ -53,6 +53,7 @@ namespace WRP3.BackOffice.Controllers
         [HttpPost, AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Add(Product product)
         {
+            var a = User?.FindFirst(c => c.Type == "sub")?.Value;
             try
             {
                 if (product is null)
@@ -62,7 +63,7 @@ namespace WRP3.BackOffice.Controllers
                 }
 
                 product.Created = DateTime.Now;
-                product.CreatedBy = "Alaeddin local";
+                product.CreatedBy = User?.Identity?.Name;
 
                 var entity = await _productAPIService.Post(product, API_URL);
 
@@ -121,7 +122,7 @@ namespace WRP3.BackOffice.Controllers
                 }
 
                 product.LastModified = DateTime.Now;
-                product.LastModifiedBy = "Alaeddin local";
+                product.LastModifiedBy = User?.Identity?.Name;
 
                 var entity = await _productAPIService.Update(product, API_URL);
 

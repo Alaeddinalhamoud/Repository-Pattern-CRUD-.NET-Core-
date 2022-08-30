@@ -57,7 +57,7 @@ namespace WRP3.BackOffice.Controllers
                 }
 
                 testType.Created = DateTime.Now;
-                testType.CreatedBy = "Alaeddin local";
+                testType.CreatedBy = User?.Identity?.Name;
 
                 var entity = await _apiService.Post(testType, API_URL);
 
@@ -117,7 +117,7 @@ namespace WRP3.BackOffice.Controllers
                 }
 
                 testType.LastModified = DateTime.Now;
-                testType.LastModifiedBy = "Alaeddin local";
+                testType.LastModifiedBy = User?.Identity?.Name;
 
                 var entity = await _apiService.Update(testType, API_URL);
 
