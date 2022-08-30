@@ -30,8 +30,9 @@ namespace WRP3.BackOffice.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Error whilte trying to get all {typeof(TestTypeController)}");
                 StatusMessage = $"Error: While trying to get all Test Type {nameof(TestTypeController)}";
+                _logger.LogError(ex, StatusMessage);
+
                 return RedirectToAction("Error", "Home");
             }
         }
@@ -64,8 +65,9 @@ namespace WRP3.BackOffice.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Error while trying to add {typeof(TestType)}");
                 StatusMessage = $"Error: While trying to get all TestType {nameof(TestType)}";
+                _logger.LogError(ex, StatusMessage);
+
                 return RedirectToAction("Error", "Home");
             }
         }
@@ -94,8 +96,9 @@ namespace WRP3.BackOffice.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Error while trying to Get {typeof(TestType)}");
                 StatusMessage = $"Error: While trying to get all TestType {nameof(TestType)}";
+                _logger.LogError(ex, StatusMessage);
+
                 return RedirectToAction("Error", "Home");
             }
         }
@@ -122,8 +125,9 @@ namespace WRP3.BackOffice.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Error while trying to Edit {typeof(TestType)}");
                 StatusMessage = $"Error: While trying to Edit TestType {nameof(TestType)}";
+                _logger.LogError(ex, StatusMessage);
+
                 return RedirectToAction("Error", "Home");
             }
         }
@@ -148,8 +152,9 @@ namespace WRP3.BackOffice.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Error while trying to Edit {typeof(TestType)}");
                 StatusMessage = $"Error: While trying to Edit TestType {nameof(TestType)}";
+                _logger.LogError(ex, StatusMessage);
+
                 return RedirectToAction("Error", "Home");
             }
         }
@@ -173,8 +178,9 @@ namespace WRP3.BackOffice.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Error while trying to Delete {typeof(TestType)}");
                 StatusMessage = $"Error: While trying to Edit TestType {nameof(TestType)}";
+                _logger.LogError(ex, StatusMessage);
+
                 return RedirectToAction("Error", "Home");
             }
         }

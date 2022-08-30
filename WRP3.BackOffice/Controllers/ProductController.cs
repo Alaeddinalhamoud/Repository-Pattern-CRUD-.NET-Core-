@@ -15,7 +15,7 @@ namespace WRP3.BackOffice.Controllers
     {
         private readonly ILogger<ProductController> _logger;
         private readonly IAPIService<Product> _productAPIService;
-        const string Product_API_URL = "/api/product";
+        const string API_URL = "/api/product";
         private readonly ITokenAcquisition _tokenAcquisition;
         private readonly IConfiguration _configuration;
 
@@ -37,21 +37,20 @@ namespace WRP3.BackOffice.Controllers
         {
             try
             {
-
-                return View(await _productAPIService.GetAll(Product_API_URL));
+                return View(await _productAPIService.GetAll(API_URL));
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Error whilte trying to get all {typeof(ProductController)}");
-                StatusMessage = $"Error: While trying to get all products {nameof(ProductController)}";
+                StatusMessage = $"Error whilte trying to get all {typeof(ProductController)}";
+                _logger.LogError(ex, StatusMessage);
+
                 return RedirectToAction("Error", "Home");
             }
         }
 
         [HttpGet]
-        public async Task<IActionResult> Add()
+        public IActionResult Add()
         {
-            await GetToken();
             return View(new Product { Id = 0 });
         }
 
@@ -69,7 +68,7 @@ namespace WRP3.BackOffice.Controllers
                 product.Created = DateTime.Now;
                 product.CreatedBy = "Alaeddin local";
 
-                var entity = await _productAPIService.Post(product, Product_API_URL);
+                var entity = await _productAPIService.Post(product, API_URL);
 
                 StatusMessage = $"Product {product?.Name} has been added successfully";
 
@@ -77,8 +76,9 @@ namespace WRP3.BackOffice.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Error while trying to add {typeof(Product)}");
                 StatusMessage = $"Error: While trying to get all products {nameof(ProductController)}";
+                _logger.LogError(ex, StatusMessage);
+
                 return RedirectToAction("Error", "Home");
             }
         }
@@ -94,7 +94,7 @@ namespace WRP3.BackOffice.Controllers
                     return RedirectToAction("Error", "Home");
                 }
 
-                var product = await _productAPIService.Get(id, $"{Product_API_URL}/GetById");
+                var product = await _productAPIService.Get(id, $"{API_URL}/GetById");
 
                 if (product is null)
                 {
@@ -107,8 +107,8 @@ namespace WRP3.BackOffice.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Error while trying to Get {typeof(Product)}");
                 StatusMessage = $"Error: While trying to get all products {nameof(ProductController)}";
+                _logger.LogError(ex, StatusMessage);
                 return RedirectToAction("Error", "Home");
             }
         }
@@ -127,16 +127,17 @@ namespace WRP3.BackOffice.Controllers
                 product.LastModified = DateTime.Now;
                 product.LastModifiedBy = "Alaeddin local";
 
-                var entity = await _productAPIService.Update(product, Product_API_URL);
+                var entity = await _productAPIService.Update(product, API_URL);
 
                 StatusMessage = $"Product Name {product?.Name} has been updated successfully";
 
-                return View(product);
+                return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Error while trying to Edit {typeof(Product)}");
                 StatusMessage = $"Error: While trying to Edit product {nameof(ProductController)}";
+                _logger.LogError(ex, StatusMessage);
+
                 return RedirectToAction("Error", "Home");
             }
         }
@@ -150,7 +151,7 @@ namespace WRP3.BackOffice.Controllers
                     StatusMessage = $"Error, Please check the missed fields";
                     return RedirectToAction("Error", "Home");
                 }
-                var product = await _productAPIService.Get(id, $"{Product_API_URL}/GetById");
+                var product = await _productAPIService.Get(id, $"{API_URL}/GetById");
 
                 if (product is null)
                 {
@@ -161,24 +162,25 @@ namespace WRP3.BackOffice.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Error while trying to Edit {typeof(Product)}");
                 StatusMessage = $"Error: While trying to Edit product {nameof(ProductController)}";
+                _logger.LogError(ex, StatusMessage);
+
                 return RedirectToAction("Error", "Home");
             }
         }
 
         [HttpGet, AutoValidateAntiforgeryToken]
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int? productId)
         {
             try
             {
-                if (id == 0 || id is null)
+                if (productId == 0 || productId is null)
                 {
                     StatusMessage = $"Error, Please check the missed fields";
                     return RedirectToAction("Error", "Home");
                 }
 
-                var product = await _productAPIService.Delete(Convert.ToInt32(id), Product_API_URL);
+                var product = await _productAPIService.Delete(productId, API_URL);
 
                 StatusMessage = $"Product Name {product?.Name} has been deleted.";
 
@@ -186,17 +188,11 @@ namespace WRP3.BackOffice.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Error while trying to Delete {typeof(Product)}");
                 StatusMessage = $"Error: While trying to Edit product {nameof(ProductController)}";
+                _logger.LogError(ex, StatusMessage);
+
                 return RedirectToAction("Error", "Home");
             }
-        }
-
-        private async Task<string> GetToken()
-        {
-            var accessToken = await _tokenAcquisition.GetAccessTokenForUserAsync(new[] { _configuration["APIScopes:UserAccess"] });
-            return accessToken;
-
         }
     }
 }
