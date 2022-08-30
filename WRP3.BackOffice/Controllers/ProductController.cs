@@ -10,7 +10,7 @@ using WRP3.Infrastructure.APIServices.IServices;
 
 namespace WRP3.BackOffice.Controllers
 {
-    [Authorize, AuthorizeForScopes(ScopeKeySection = "APIScopes:UserAccess")]
+    [Authorize]
     public class ProductController : Controller
     {
         private readonly ILogger<ProductController> _logger;

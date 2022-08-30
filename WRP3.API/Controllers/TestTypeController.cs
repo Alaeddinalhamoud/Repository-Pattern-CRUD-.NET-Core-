@@ -7,7 +7,7 @@ using WRP3.IServices.Common;
 
 namespace WRP3.API.Controllers
 {
-    [Authorize, AuthorizeForScopes(ScopeKeySection = "APIScopes:UserAccess")]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class TestTypeController : ControllerBase

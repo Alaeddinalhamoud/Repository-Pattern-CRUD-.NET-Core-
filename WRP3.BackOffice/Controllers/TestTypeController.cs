@@ -4,9 +4,11 @@ using System.Threading.Tasks;
 using System;
 using WRP3.Domain.Entities;
 using WRP3.Infrastructure.APIServices.IServices;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WRP3.BackOffice.Controllers
 {
+    [Authorize]
     public class TestTypeController : Controller
     {
         private readonly ILogger<TestTypeController> _logger;
