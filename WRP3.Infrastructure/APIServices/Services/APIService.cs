@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using Microsoft.Identity.Web;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using WRP3.Infrastructure.APIServices.IServices;
@@ -8,17 +11,26 @@ namespace WRP3.Infrastructure.APIServices.Services
     public class APIService<T> : IAPIService<T> where T : class
     {
         private readonly IHttpClientFactory _httpClientFactory;
+        private readonly ITokenAcquisition _tokenAcquisition;
         private readonly ILogger<APIService<T>> _logger;
-        public APIService(IHttpClientFactory httpClientFactory, ILogger<APIService<T>> logger)
+        private readonly string _APIScope = string.Empty;
+
+        public APIService(IHttpClientFactory httpClientFactory,
+            ILogger<APIService<T>> logger,
+            ITokenAcquisition tokenAcquisition,
+            IConfiguration configuration)
         {
             _httpClientFactory = httpClientFactory;
             _logger = logger;
+            _tokenAcquisition = tokenAcquisition;
+            _APIScope = configuration["APIScopes:UserAccess"];
+
         }
         public async Task<T?> Delete(int? id, string? url)
         {
             try
             {
-                var httpClient = _httpClientFactory.CreateClient("API");
+                HttpClient httpClient = await GetToken();
 
                 var httpResponseMessage = await httpClient.DeleteAsync($"{url}/{id}");
 
@@ -45,7 +57,7 @@ namespace WRP3.Infrastructure.APIServices.Services
         {
             try
             {
-                var httpClient = _httpClientFactory.CreateClient("API");
+                HttpClient httpClient = await GetToken();
 
                 var httpResponseMessage = await httpClient.GetAsync($"{url}/{id}");
 
@@ -72,7 +84,7 @@ namespace WRP3.Infrastructure.APIServices.Services
         {
             try
             {
-                var httpClient = _httpClientFactory.CreateClient("API");
+                HttpClient httpClient = await GetToken();
 
                 var httpResponseMessage = await httpClient.GetAsync(url);
 
@@ -95,11 +107,13 @@ namespace WRP3.Infrastructure.APIServices.Services
             }
         }
 
+
+
         public async Task<T?> Post(T? t, string? url)
         {
             try
             {
-                var httpClient = _httpClientFactory.CreateClient("API");
+                HttpClient httpClient = await GetToken();
 
                 var content = JsonSerializer.Serialize(t);
                 HttpContent httpContent = new StringContent(content, Encoding.UTF8, "application/json");
@@ -129,7 +143,7 @@ namespace WRP3.Infrastructure.APIServices.Services
         {
             try
             {
-                var httpClient = _httpClientFactory.CreateClient("API");
+                HttpClient httpClient = await GetToken();
 
                 var content = JsonSerializer.Serialize(t);
                 HttpContent httpContent = new StringContent(content, Encoding.UTF8, "application/json");
@@ -153,6 +167,16 @@ namespace WRP3.Infrastructure.APIServices.Services
                 _logger.LogCritical(ex, $"Error while Updating All {nameof(T)}");
                 return null;
             }
+        }
+        private async Task<HttpClient> GetToken()
+        {
+            var httpClient = _httpClientFactory.CreateClient("API");
+
+            var accessToken = await _tokenAcquisition.GetAccessTokenForUserAsync(new[] { _APIScope });
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            return httpClient;
         }
     }
 }

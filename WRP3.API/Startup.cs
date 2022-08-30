@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Identity.Web;
 using WRP3.DataAccess.EFDBContext;
 using WRP3.IServices.Common;
 using WRP3.Services.Comman;
@@ -19,9 +21,17 @@ namespace WRP3.API
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                    .AddMicrosoftIdentityWebApi(options =>
+                    {
+                        Configuration.Bind(Constants.AzureAdB2C, options);
+
+                        options.TokenValidationParameters.NameClaimType = "name";
+                    },
+            options => { Configuration.Bind(Constants.AzureAdB2C, options); });
+
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -45,6 +55,7 @@ namespace WRP3.API
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

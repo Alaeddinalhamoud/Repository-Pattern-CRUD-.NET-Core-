@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Web.Resource;
 using System.Threading.Tasks;
 using WRP3.Domain.Entities;
 using WRP3.IServices.Common;
 
 namespace WRP3.API.Controllers
 {
+    [Authorize, RequiredScope("access_as_user")]
     [ApiController]
     [Route("api/[controller]")]
     public class ProductController : ControllerBase

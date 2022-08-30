@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Web;
 using System.Threading.Tasks;
 using WRP3.Domain.Entities;
 using WRP3.IServices.Common;
 
 namespace WRP3.API.Controllers
 {
+    [Authorize, AuthorizeForScopes(ScopeKeySection = "APIScopes:UserAccess")]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductTestController : ControllerBase

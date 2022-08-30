@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Identity.Web;
 using System;
 using System.Threading.Tasks;
 using WRP3.Domain.Entities;
@@ -7,25 +10,34 @@ using WRP3.Infrastructure.APIServices.IServices;
 
 namespace WRP3.BackOffice.Controllers
 {
+    [Authorize, AuthorizeForScopes(ScopeKeySection = "APIScopes:UserAccess")]
     public class ProductController : Controller
     {
         private readonly ILogger<ProductController> _logger;
         private readonly IAPIService<Product> _productAPIService;
         const string Product_API_URL = "/api/product";
+        private readonly ITokenAcquisition _tokenAcquisition;
+        private readonly IConfiguration _configuration;
 
         [TempData]
         public string StatusMessage { get; set; }
         public ProductController(ILogger<ProductController> logger,
-            IAPIService<Product> productAPIService)
+            IAPIService<Product> productAPIService,
+            ITokenAcquisition tokenAcquisition,
+            IConfiguration configuration)
         {
             _logger = logger;
             _productAPIService = productAPIService;
+            _tokenAcquisition = tokenAcquisition;
+            _configuration = configuration;
 
         }
+
         public async Task<IActionResult> Index()
         {
             try
             {
+
                 return View(await _productAPIService.GetAll(Product_API_URL));
             }
             catch (Exception ex)
@@ -37,8 +49,9 @@ namespace WRP3.BackOffice.Controllers
         }
 
         [HttpGet]
-        public IActionResult Add()
+        public async Task<IActionResult> Add()
         {
+            await GetToken();
             return View(new Product { Id = 0 });
         }
 
@@ -116,7 +129,7 @@ namespace WRP3.BackOffice.Controllers
 
                 var entity = await _productAPIService.Update(product, Product_API_URL);
 
-                StatusMessage = $"Product {product?.Name} has been updated successfully";
+                StatusMessage = $"Product Name {product?.Name} has been updated successfully";
 
                 return View(product);
             }
@@ -167,7 +180,7 @@ namespace WRP3.BackOffice.Controllers
 
                 var product = await _productAPIService.Delete(Convert.ToInt32(id), Product_API_URL);
 
-                StatusMessage = $"Product Id {product?.Name} has been deleted.";
+                StatusMessage = $"Product Name {product?.Name} has been deleted.";
 
                 return RedirectToAction("index");
             }
@@ -177,6 +190,13 @@ namespace WRP3.BackOffice.Controllers
                 StatusMessage = $"Error: While trying to Edit product {nameof(ProductController)}";
                 return RedirectToAction("Error", "Home");
             }
+        }
+
+        private async Task<string> GetToken()
+        {
+            var accessToken = await _tokenAcquisition.GetAccessTokenForUserAsync(new[] { _configuration["APIScopes:UserAccess"] });
+            return accessToken;
+
         }
     }
 }

@@ -7,6 +7,7 @@ using WRP3.Infrastructure.APIServices.ServiceCollections;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WRP3.BackOffice
 {
@@ -19,23 +20,30 @@ namespace WRP3.BackOffice
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
-                 .AddMicrosoftIdentityWebApp(Configuration.GetSection("AzureB2C"));
 
-            services.AddAuthorization(options =>
+
+            services.AddMicrosoftIdentityWebAppAuthentication(Configuration, Constants.AzureAdB2C)
+                   .EnableTokenAcquisitionToCallDownstreamApi(new string[] { Configuration["APIScopes:UserAccess"] })
+                   .AddInMemoryTokenCaches();
+
+
+
+            services.AddControllersWithViews(opt =>
             {
-                // By default, all incoming requests will be authorized according to 
-                // the default policy
-                options.FallbackPolicy = options.DefaultPolicy;
-            });
+                var policy = new AuthorizationPolicyBuilder()
+                .RequireAuthenticatedUser()
+                .Build();
+            }).AddRazorRuntimeCompilation()
+              .AddMicrosoftIdentityUI();
 
-            services.AddControllersWithViews()
-                .AddRazorRuntimeCompilation();
-            services.AddRazorPages().AddMicrosoftIdentityUI();
+            services.AddRazorPages();
+
             services.AddCustomAPIServices(Configuration);
+
+            services.AddOptions();
+            services.Configure<OpenIdConnectOptions>(Configuration.GetSection("AzureAdB2C"));
 
         }
 
