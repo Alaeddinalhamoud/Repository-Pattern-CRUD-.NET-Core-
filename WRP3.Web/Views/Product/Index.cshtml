@@ -1,0 +1,16 @@
+﻿@using WRP3.Domain.Entities;
+@model IEnumerable<Product>
+@{
+    ViewData["Title"] = "Products";
+}
+
+<h2>Products</h2>
+
+<partial name="Partials/_ProductSearchForm" />
+
+<table class="table">
+    <partial name="Partials/_ProductTableHeader"/>
+    <tbody>
+        <partial name="Partials/_ProductTableChildern" model="@Model" />
+    </tbody>
+</table>

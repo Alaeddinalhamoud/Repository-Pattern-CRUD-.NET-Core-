@@ -1,0 +1,25 @@
+﻿@using WRP3.Domain.Entities;
+@model IEnumerable<Product>
+
+@foreach (var item in Model ?? new List<Product>())
+{
+    <tr>
+        <td>
+            @item?.Id
+        </td>
+        <td>
+            @item?.Name
+        </td>
+        <td>
+            @item?.Created.ToString("d")
+        </td>
+        <td>
+            ✔  or ❌
+        </td>
+        <td>
+            <a asp-action="Review" asp-route-id="@item.Id">Review</a> |
+            <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+          
+        </td>       
+    </tr>
+}

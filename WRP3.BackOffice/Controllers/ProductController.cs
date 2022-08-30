@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
@@ -15,17 +14,14 @@ namespace WRP3.BackOffice.Controllers
         private readonly ILogger<ProductController> _logger;
         private readonly IAPIService<Product> _productAPIService;
         const string API_URL = "/api/product";
-        private readonly IConfiguration _configuration;
 
         [TempData]
         public string StatusMessage { get; set; }
         public ProductController(ILogger<ProductController> logger,
-            IAPIService<Product> productAPIService,
-            IConfiguration configuration)
+            IAPIService<Product> productAPIService)
         {
             _logger = logger;
             _productAPIService = productAPIService;
-            _configuration = configuration;
 
         }
 
@@ -53,7 +49,6 @@ namespace WRP3.BackOffice.Controllers
         [HttpPost, AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Add(Product product)
         {
-            var a = User?.FindFirst(c => c.Type == "sub")?.Value;
             try
             {
                 if (product is null)

@@ -6,7 +6,6 @@ using WRP3.Web.Models;
 
 namespace WRP3.Web.Controllers
 {
-    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
