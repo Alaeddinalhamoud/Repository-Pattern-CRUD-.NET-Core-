@@ -2,7 +2,7 @@
 
 @if (!String.IsNullOrEmpty(Model))
 {
-    <div class="alert alert-@(Model.StartsWith("Error") ? "danger" : "success") alert-dismissible text-white" role="alert">
+    <div class="alert alert-@(Model.StartsWith("Error") ? "danger" : "success")" role="alert">
         <span class="text-sm">@Model</span>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>

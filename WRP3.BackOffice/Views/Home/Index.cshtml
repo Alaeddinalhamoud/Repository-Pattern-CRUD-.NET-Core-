@@ -4,24 +4,16 @@
 <div class="container-fluid py-4">
     <div class="container-fluid text-center py-1 px-q">
     <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-        <div class="input-group input-group-outline m-1">
-            <label class="form-label">outline here...</label>
-            <input type="text" class="form-control">
-        </div>
-        <div class="input-group input-group-dynamic m-1">
-            <label class="form-label">Dynamic here...</label>
-            <input type="text" class="form-control">
-        </div>
-        <div class="input-group input-group-static m-1">
-            <label class="form-label">Static here...</label>
-            <input type="text" class="form-control">
+            @if (!User?.Identity?.IsAuthenticated ?? false)
+            {
+                <a class="btn bg-gradient-primary mt-4 w-20" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignIn">
+                    <i class="fa fa-sign-in"></i>
+                    Sign in
+                </a>
+            }
         </div>
     </div>
-    <div>
-        <a class="btn bg-gradient-primary mt-4 w-50" href="#" type="button">Logout</a>
-    </div>
+    
 </div>
-
-<partial name="_LoginPartial" />
 
 </div>
