@@ -14,12 +14,10 @@
             @item?.Created.ToString("d")
         </td>
         <td>
-            ✔  or ❌
+            🟢  or 🟡
         </td>
         <td>
-            <a asp-action="Review" asp-route-id="@item.Id">Review</a> |
-            <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-          
+            <a asp-action="ProductTestCases" asp-route-id="@item.Id">Test Cases</a>
         </td>       
     </tr>
 }

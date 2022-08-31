@@ -1,0 +1,51 @@
+﻿@using WRP3.Web.Models.ProductViewModels
+@using WRP3.Domain.Entities;
+@model ProductsTestCases;
+
+@{
+    ViewData["Title"] = $"{Model?.ProductName} Test Cases";
+}
+    <div class="card">
+        <div class="card-header">
+            Product Details
+        </div>
+
+        <div class="card-body">
+            <label class="font-weight-bold">Product Id:</label> @Model?.ProductId
+            <br />
+            <label class="font-weight-bold">Product Name:</label> @Model?.ProductName
+            <br />
+            <label class="font-weight-bold">Description:</label>
+        </div>
+
+        <div class="card-footer">
+            <div class="mt-2">
+                <h4>Test Cases</h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Test Type</th>
+                            <th scope="col">Status</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var testType in Model?.TestType ?? new List<TestType>())
+                        {
+                            <tr>
+                                <td>@testType?.Name</td>
+                                <td>✔</td>
+                                <td>
+                                <a asp-action="TestIt" asp-controller="ProductTest"
+                                   asp-route-testTypeId="@testType?.Id"
+                                   asp-route-productId="@Model?.ProductId"
+                                   asp-route-productName="@Model?.ProductName"
+                                   asp-route-testTypeName="@testType?.Name">Test it</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>

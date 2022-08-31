@@ -12,8 +12,8 @@ using WRP3.DataAccess.EFDBContext;
 namespace WRP3.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220827125123_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20220831094228_ProducttestTypeIds")]
+    partial class ProducttestTypeIds
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -83,10 +83,6 @@ namespace WRP3.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("TestTypeId");
-
                     b.ToTable("ProductTests");
                 });
 
@@ -116,21 +112,6 @@ namespace WRP3.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TestTypes");
-                });
-
-            modelBuilder.Entity("WRP3.Domain.Entities.ProductTest", b =>
-                {
-                    b.HasOne("WRP3.Domain.Entities.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId");
-
-                    b.HasOne("WRP3.Domain.Entities.TestType", "TestType")
-                        .WithMany()
-                        .HasForeignKey("TestTypeId");
-
-                    b.Navigation("Product");
-
-                    b.Navigation("TestType");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,0 +1,33 @@
+﻿@model WRP3.Web.Models.ProductTestModels.ProductTestView
+@{
+    ViewData["Title"] = $"Test case {@Model?.TestTypeName} For {@Model?.ProductName}";
+}
+
+<div class="card">
+    <div class="card-header">
+      Test case @Model?.TestTypeName For @Model?.ProductName
+    </div>
+    <div class="card-body">
+        <form method="post" asp-action="TestIt" asp-controller="ProductTest">
+            <input id="Id" name="Id" value="@Model?.ProductTestId" />
+            <input id="ProductId" name="ProductId" value="@Model?.ProductId" />
+            <input id="TestTypeId" name="TestTypeId" value="@Model?.TestTypeId" />
+            <div class="form-group">
+                <label>Mark</label>
+                <section>
+                    <select asp-for="@Model.Mark" name="mark" id="mark" required>
+                        <option value="0">--Select--</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </section>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <br/>
+        <a class="btn btn-warning"cla asp-action="ProductTestCases" asp-controller="Product" asp-route-id="@Model?.ProductId">Back to Product List</a>
+    </div>
+</div>

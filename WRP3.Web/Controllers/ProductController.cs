@@ -7,7 +7,6 @@ using WRP3.Infrastructure.APIServices.IServices;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using WRP3.Web.Models.ProductViewModels;
-using System.Collections.Generic;
 
 namespace WRP3.Web.Controllers
 {
@@ -76,28 +75,26 @@ namespace WRP3.Web.Controllers
             }
         }
 
-        public async Task<IActionResult> Review(int? Id)
+        public async Task<IActionResult> ProductTestCases(int? Id)
         {
             try
-           {
+            {
                 if (Id == 0 || Id is null)
                 {
                     StatusMessage = $"Error Empty data passed {nameof(ProductController)}";
                     return RedirectToAction("Error", "Home");
                 }
-                Product? product = await _productService.Get(Id, $"{PRODUCT_API_URL}/GetById");
-                List<TestType>? testTypes = await _testTypeService.GetAll(TEST_TYPE_API_URL);
-                List<ProductTest>? productTests = await _productTestService.GetAll(PRODUCT_TEST_API_URL);
 
-                var reviewModel = new Review()
+                Product product = await _productService.Get(Id, $"{PRODUCT_API_URL}/GetById");
+
+                ProductsTestCases productsTestCases = new()
                 {
-                    ProductId = product?.Id,
-                    ProductName = product?.Name,
-                    TestTypes = testTypes,
-                    ProductTests = productTests.Where(x => x.Product?.Id.Equals(product?.Id) ?? false).ToList()
+                    ProductId = product.Id,
+                    ProductName = product.Name,
+                    TestType = await _testTypeService.GetAll(TEST_TYPE_API_URL)
                 };
 
-                return View(reviewModel);
+                return View(productsTestCases);
             }
             catch (Exception ex)
             {
@@ -106,7 +103,6 @@ namespace WRP3.Web.Controllers
 
                 return RedirectToAction("Error", "Home");
             }
-
         }
     }
 }
