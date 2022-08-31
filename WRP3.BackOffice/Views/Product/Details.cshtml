@@ -32,8 +32,8 @@
                             <span>@Model?.LastModified?.ToString("d")</span>
                         </div>
                         <div>
-                            <label class="font-weight-bold">Last Modified By:</label>
-                            <span>@Model?.LastModifiedBy</span>
+                            <label class="font-weight-bold">Number Of Tests:</label>
+                            <vc:product-test-status product-id="@Model?.Id" />
                         </div>
                         <br />
                         <div>

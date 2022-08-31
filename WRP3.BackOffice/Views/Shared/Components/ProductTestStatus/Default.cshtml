@@ -1,0 +1,16 @@
+﻿@model WRP3.BackOffice.Models.ViewComponentModels.ProductTestCases
+
+
+@if (Model != null)
+{
+    <span>(@Model.NumberOfTest) </span> 
+    
+    <span>
+        @for (var i = 1; i <= Model.NumberOfStarts; i++)
+        {
+            @Html.Raw("⭐")
+        }
+    </span>
+}
+
+
