@@ -1,0 +1,17 @@
+﻿@model WRP3.Web.Models.ViewComponentModels.PendingProductTest
+
+@{
+    if (Model != null)
+    {
+        <span>@Model.NumberOfTest / @Model.NumberOfTestType</span>
+
+        if (Model.NumberOfTestType == Model.NumberOfTest)
+        {
+            <span> ✔</span>
+        }
+        else
+        {
+            <span> 🟠</span>
+        }
+    }
+}

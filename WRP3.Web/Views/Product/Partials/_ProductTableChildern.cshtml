@@ -14,10 +14,10 @@
             @item?.Created.ToString("d")
         </td>
         <td>
-            🟢  or 🟡
+            <vc:pending-product-test product-id="@item.Id"/>
         </td>
         <td>
-            <a asp-action="ProductTestCases" asp-route-id="@item.Id">Test Cases</a>
+            <a class="btn btn-primary" asp-action="ProductTestCases" asp-route-id="@item.Id">Test Cases</a>
         </td>       
     </tr>
 }

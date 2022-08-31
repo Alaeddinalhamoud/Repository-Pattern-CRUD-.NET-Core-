@@ -1,0 +1,15 @@
+﻿@model WRP3.Web.Models.ViewComponentModels.PendingProductTestCase
+
+@if (Model.Status)
+{
+    <span>
+        @for (var i = 1; i <= Model.Mark; i++)
+        {
+            @Html.Raw("⭐")
+        }
+    </span>
+}
+else
+{
+    <span>🟠</span>
+}
