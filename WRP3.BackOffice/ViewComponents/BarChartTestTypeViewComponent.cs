@@ -39,8 +39,9 @@ namespace WRP3.BackOffice.ViewComponents
                 var testTypes = await _testTypeService.GetAll(TEST_Type_API_URL);
 
                 int counter = 1;
-                barChartTestType.TestNames = "[";
-                barChartTestType.NumberOfTest = "[";
+                barChartTestType.TestNames = string.Empty;
+                barChartTestType.NumberOfTest = string.Empty;
+
                 foreach (var testType in testTypes)
                 {
                     barChartTestType.TestNames += $"\"{testType.Name}\"";
@@ -56,10 +57,6 @@ namespace WRP3.BackOffice.ViewComponents
 
                     counter++;
                 }
-
-                barChartTestType.TestNames += "]";
-                barChartTestType.NumberOfTest += "]";
-
 
                 return View(barChartTestType);
             }

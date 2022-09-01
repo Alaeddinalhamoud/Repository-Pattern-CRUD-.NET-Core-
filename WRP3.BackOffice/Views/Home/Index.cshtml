@@ -7,24 +7,17 @@
     <div class="row">
         @if (!User?.Identity?.IsAuthenticated ?? false)
         {
-
-            <div class="col-xl-12 col-sm-12 mb-xl-12 mb-4">
-                <div class="card">
-                    <a class="btn bg-gradient-primary mt-4 w-20" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignIn">
-                        <i class="fa fa-sign-in"></i>
-                        Sign in
-                    </a>
-                </div>
-            </div>
+            <a class="btn bg-gradient-primary mt-4 w-20" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignIn">
+                <i class="fa fa-sign-in"></i>
+                Sign in
+            </a>
         }
         else
         {
             <vc:number-of-product />
-            <vc:number-of-test-type/>
-            <vc:number-of-product-test/>
-
-            <vc:bar-chart-test-type/>
+            <vc:number-of-test-type />
+            <vc:number-of-product-test />
+            <vc:bar-chart-test-type />
         }
-
     </div>
 </div>
