@@ -1,0 +1,20 @@
+﻿@using WRP3.Infrastructure.GoogleRecaptcha.Models
+@using Microsoft.Extensions.Options
+@inject IOptions<GoogleRecaptchaSettings> googleRecaptchaSettingOptions
+
+<partial name="Bundles/_RecaptchaBundles" />
+
+<script type="text/javascript">
+
+    var onloadCallback = function () {
+        grecaptcha.render('html_element', {
+            'sitekey': '@googleRecaptchaSettingOptions.Value.SiteKey',
+            'callback': verifyCallback
+        });
+    };
+
+    var verifyCallback = function (response) {
+        console.log(response);
+        document.getElementById("GoogleRecaptchaToken").value = response;
+    };
+</script>

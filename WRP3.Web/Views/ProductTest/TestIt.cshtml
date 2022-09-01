@@ -9,11 +9,11 @@
     </div>
     <div class="card-body">
         <form method="post" asp-action="TestIt" asp-controller="ProductTest">
-            <input id="Id" name="Id" value="@Model?.ProductTestId" hidden required />
+            <input id="ProductTestId" name="ProductTestId" value="@Model?.ProductTestId" hidden required />
             <input id="ProductId" name="ProductId" value="@Model?.ProductId" hidden required />
             <input id="TestTypeId" name="TestTypeId" value="@Model?.TestTypeId" hidden required />
             <div class="form-group">
-                <label>Mark</label>
+                <label>Mark: </label>
                 <section>
                     <select asp-for="@Model.Mark" name="mark" id="mark" required>
                         <option value="1">1</option>
@@ -24,9 +24,18 @@
                     </select>
                 </section>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <div>
+                <div id="html_element"></div>
+                <input type="text" name="GoogleRecaptchaToken" id="GoogleRecaptchaToken" class="form-control" required hidden />
+            </div>
+            <div class="m-2">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
         </form>
-        <br/>
-        <a class="btn btn-warning float-right" asp-action="ProductTestCases" asp-controller="Product" asp-route-id="@Model?.ProductId">Back to Product Test</a>
+        <br />
+        <a class="btn btn-warning float-right" asp-action="ProductTestCases" asp-controller="Product" asp-route-id="@Model?.ProductId">Back to Test Cases</a>
     </div>
 </div>
+
+
+<partial name="Partials/_TestItBundles" />

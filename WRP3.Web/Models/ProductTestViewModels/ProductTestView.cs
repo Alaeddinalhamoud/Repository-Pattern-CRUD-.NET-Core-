@@ -8,5 +8,6 @@
         public string TestTypeName { get; set; }
         public int Mark { get; set; }
         public int ProductTestId { get; set; }
+        public string GoogleRecaptchaToken { get; set; }
     }
 }

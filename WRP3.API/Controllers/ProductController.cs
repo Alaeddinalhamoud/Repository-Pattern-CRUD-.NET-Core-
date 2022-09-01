@@ -7,7 +7,6 @@ using WRP3.IServices.Common;
 namespace WRP3.API.Controllers
 {
     [Authorize]
-    //[ RequiredScope("access_as_user")]
     [ApiController]
     [Route("api/[controller]")]
     public class ProductController : ControllerBase

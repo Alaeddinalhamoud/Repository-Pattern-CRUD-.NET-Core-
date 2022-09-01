@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
 using WRP3.Infrastructure.APIServices.ServiceCollections;
+using WRP3.Infrastructure.GoogleRecaptcha.ServiceCollections;
 
 namespace WRP3.Web
 {
@@ -33,14 +34,12 @@ namespace WRP3.Web
                 .Build();
             }).AddRazorRuntimeCompilation();
 
-
-
             services.AddRazorPages().AddMicrosoftIdentityUI();
-
-            services.AddCustomAPIServices(Configuration);
-
             services.AddOptions();
             services.Configure<OpenIdConnectOptions>(Configuration.GetSection("AzureAdB2C"));
+
+            services.AddCustomAPIServices(Configuration);
+            services.AddCustomGoogleReCaptchaService(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
