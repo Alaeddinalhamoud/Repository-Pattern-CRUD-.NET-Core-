@@ -7,7 +7,7 @@ C# Repository Pattern CRUD on .NET core 6.
 We have used:
 - .Net Core 6
 - Azure SQL DB
-- Azure Active Directory B2C ( to login use Microsoft )
+- Azure Active Directory B2C ( to login use your Microsoft account)
 
 The project consist of :
 
