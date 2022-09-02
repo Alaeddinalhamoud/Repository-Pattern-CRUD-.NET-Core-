@@ -39,13 +39,13 @@ Temporary URL: https://wrp-api.azurewebsites.net
 
 
 # How to run the App
-Set the API as s startup app
-###### Change the connection str to you localmachine
+Set the API as a startup app
+###### Change the connection str to your localmachine name
 "ConnectionStr": "Server=(localdb)\\MSSQLLocalDB;Database=WRP3DB;Trusted_Connection=True;MultipleActiveResultSets=true"
 ###### Run Update-database commmand
 
 
-After running the migration you have to set the following project as start up
+After running the migration you have to set the following project as a start up
 ![image](https://user-images.githubusercontent.com/20483242/187949911-eec774e0-103d-4538-ac36-f2f10d72554d.png)
 
 
